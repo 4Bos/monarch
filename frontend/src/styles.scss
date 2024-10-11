@@ -1,1 +1,212 @@
 /* You can add global styles to this file, and also import other style files */
+
+@use './loader';
+
+@include loader.loader-animation();
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    font-family: Roboto, 'sans-serif';
+}
+
+*,
+:before,
+:after {
+    box-sizing: border-box;
+}
+
+app-root {
+    display: flex;
+    height: 100%;
+}
+
+.map {
+    flex-grow: 1;
+}
+
+.sidebar {
+    width: 360px;
+    padding: 24px;
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    box-shadow:
+        0 0 10px rgba(#000, .1),
+        0 0 0 1px rgba(#000, .04);
+
+    h1 {
+        margin: 0 0 16px;
+        font-size: 24px;
+    }
+
+    h2 {
+        margin: 0 0 16px;
+        font-size: 16px;
+    }
+}
+
+.legend {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    font-size: 13px;
+}
+.legend__item:before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: #333;
+    margin-right: 8px;
+    border-radius: 2px;
+}
+.legend__item--own:before {
+    background: #0052bf;
+}
+.legend__item {
+    display: flex;
+    align-items: center;
+}
+.legend__item + .legend__item {
+    margin-top: 4px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+.field + .field {
+    margin-top: 20px;
+}
+
+.field__label {
+    font-size: 16px;
+    display: block;
+    margin: 0 0 8px;
+}
+
+.error {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #c60000;
+}
+
+.control {
+    flex-grow: 1;
+    display: block;
+    border: 1px solid rgba(#000, .2);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+}
+input.control {
+    height: 36px;
+}
+
+.button {
+    position: relative;
+    height: 36px;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    font-family: inherit;
+    border: none;
+    border-radius: 4px;
+    background: rgba(#000, .1);
+    cursor: pointer;
+    padding: 8px 12px;
+}
+.button:not(.button--loading):hover {
+    background: rgba(#000, .12);
+}
+.button:not(.button--loading):active {
+    background: rgba(#000, .15);
+}
+.button--loading {
+    color: transparent;
+    cursor: default;
+
+    &:after {
+        @include loader.loader();
+        @include loader.loader-thickness(2px);
+        @include loader.loader-size(20px);
+
+        border-color: rgba(#243033, .2);
+        border-top-color: rgba(#243033, .6);
+    }
+}
+.button-stack {
+    display: flex;
+    gap: 16px;
+}
+.button-stack .button {
+    width: auto;
+    flex-grow: 1;
+}
+
+.message {
+    margin-top: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+.divider {
+    margin: 24px 0;
+    height: 1px;
+    background: rgba(#000, .1);
+}
+
+.marker {
+    width: 0;
+    height: 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+.marker--alien {
+    cursor: default;
+}
+.marker svg {
+    position: relative;
+    top: -2.25em;
+    left: -0.875em;
+    color: #0052bf;
+    transition: color .15s;
+}
+.marker:not(.marker--alien):hover svg {
+    color: #1268df;
+}
+.marker:not(.marker--alien):active svg {
+    color: #0052bf;
+    transition-duration: 0s;
+}
+.marker--alien svg {
+    color: #333;
+}
+
+.hint {
+    position: absolute;
+    transform: translate(20px, -50%);
+    padding: 14px 16px;
+    background: white;
+    width: 280px;
+    border-radius: 4px;
+    color: #333;
+    box-shadow:
+        0 0 6px rgba(#000, .1),
+        0 0 0 1px rgba(#000, .04);
+}
+.hint__help {
+    margin-top: 8px;
+    color: #777;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.hint--alien .hint__help {
+    display: none;
+}
