@@ -13,12 +13,28 @@ export class ApiService {
 
     currentUser$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
+    get currentUser(): User | null {
+        return this.currentUser$.value;
+    }
+
     constructor(
         private http: HttpClient,
-    ) { }
+    ) {
+        // This is needed to find out which user is logged in right now.
+        this.user().subscribe();
+    }
 
     login(email: string, password: string): Observable<User> {
         return this.http.post<User>(`${this.baseUrl}/api/login`, {
+            email: email,
+            password: password,
+        }, {withCredentials: true}).pipe(
+            tap((user) => this.currentUser$.next(user)),
+        );
+    }
+
+    register(email: string, password: string): Observable<User> {
+        return this.http.post<User>(`${this.baseUrl}/api/register`, {
             email: email,
             password: password,
         }, {withCredentials: true}).pipe(

@@ -1,0 +1,39 @@
+<div class="body">
+    <button type="button" class="button" (click)="startPointAddingMode()">Добавить метку</button>
+
+    <div class="divider"></div>
+
+    <div class="section">
+        <div class="section__title">Условные обозначения</div>
+        <ul class="section__content legend">
+            <li class="legend__item legend__item--own">Ваши метки</li>
+            <li class="legend__item">Чужие метки</li>
+        </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    @if(currentUser$|async) {
+        <div class="section">
+            <div class="section__title">Добро пожаловать</div>
+            <div class="section__content"><mark>{{ (currentUser$|async)?.email }}</mark></div>
+        </div>
+
+        <button type="button" class="button" [class.button--loading]="logoutInProgress" (click)="logout()">Выход</button>
+    } @else {
+        <button type="button" class="button" (click)="openSignUpModal()">Регистрация</button>
+        <button type="button" class="button" (click)="openLoginModal()">Вход</button>
+    }
+</div>
+
+@if(pointAddingMode.isActive) {
+    <div class="body body--overlay">
+        <button type="button" class="button" (click)="cancelPointAddingMode()">Отмена</button>
+
+        <div class="divider"></div>
+
+        <div class="message">
+            Нажмите на карту в то место в которое вы хотите поместить новую метку
+        </div>
+    </div>
+}

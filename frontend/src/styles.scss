@@ -9,7 +9,7 @@ body {
     padding: 0;
     margin: 0;
     height: 100%;
-    font-family: Roboto, 'sans-serif';
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 *,
@@ -23,57 +23,81 @@ app-root {
     height: 100%;
 }
 
-.map {
+/*
+ * app-map
+ */
+app-map {
     flex-grow: 1;
 }
 
-.sidebar {
-    width: 360px;
-    padding: 24px;
-    position: relative;
-    z-index: 1;
-    background: #fff;
-    box-shadow:
-        0 0 10px rgba(#000, .1),
-        0 0 0 1px rgba(#000, .04);
 
-    h1 {
-        margin: 0 0 16px;
-        font-size: 24px;
-    }
-
-    h2 {
-        margin: 0 0 16px;
-        font-size: 16px;
-    }
+/*
+ * .warning
+ */
+.warning {
+    background: #ffecc8;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 24px;
 }
 
-.legend {
-    list-style: none;
-    padding: 0;
-    margin: 12px 0 0;
+
+/*
+ * .second-action
+ */
+.second-action {
+    margin-top: 20px;
+    text-align: center;
     font-size: 13px;
+    line-height: 1.5;
 }
-.legend__item:before {
-    content: '';
-    display: block;
-    width: 12px;
-    height: 12px;
-    background: #333;
-    margin-right: 8px;
-    border-radius: 2px;
+.second-action a {
+    color: #0060e5;
+    text-decoration: none;
 }
-.legend__item--own:before {
-    background: #0052bf;
-}
-.legend__item {
-    display: flex;
-    align-items: center;
-}
-.legend__item + .legend__item {
-    margin-top: 4px;
+.second-action a:hover {
+    text-decoration: underline;
 }
 
+
+/*
+ * .modal
+ */
+.modal {
+    padding: 32px;
+    position: relative;
+}
+.modal__title {
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0 0 24px;
+}
+.modal__close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    border: none;
+    background: transparent;
+    color: #999;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.modal__close:hover {
+    background: rgba(#000, .08);
+}
+.modal__close:active {
+    background: rgba(#000, .12);
+}
+
+
+/*
+ * .field
+ */
 .field {
     display: flex;
     flex-direction: column;
@@ -81,26 +105,34 @@ app-root {
 .field + .field {
     margin-top: 20px;
 }
-
 .field__label {
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 500;
     display: block;
     margin: 0 0 8px;
 }
 
+
+/*
+ * .error
+ */
 .error {
     margin-top: 6px;
     font-size: 14px;
     color: #c60000;
 }
 
+
+/*
+ * .control
+ */
 .control {
     flex-grow: 1;
     display: block;
     border: 1px solid rgba(#000, .2);
     border-radius: 4px;
     padding: 8px 12px;
-    font-size: 16px;
+    font-size: 13px;
     font-family: inherit;
     resize: vertical;
 }
@@ -108,19 +140,24 @@ input.control {
     height: 36px;
 }
 
+
+/*
+ * .button
+ */
 .button {
     position: relative;
-    height: 36px;
-    margin-top: 20px;
+    height: 32px;
     display: block;
     width: 100%;
-    font-size: 16px;
+    font-size: 13px;
+    font-weight: 500;
     font-family: inherit;
     border: none;
     border-radius: 4px;
     background: rgba(#000, .1);
     cursor: pointer;
     padding: 8px 12px;
+    white-space: nowrap;
 }
 .button:not(.button--loading):hover {
     background: rgba(#000, .12);
@@ -128,6 +165,18 @@ input.control {
 .button:not(.button--loading):active {
     background: rgba(#000, .15);
 }
+
+.button--danger {
+    background: #e55050;
+    color: #fff;
+}
+.button--danger:not(.button--loading):hover {
+    background: #d94c4c;
+}
+.button--danger:not(.button--loading):active {
+    background: #bf4343;
+}
+
 .button--loading {
     color: transparent;
     cursor: default;
@@ -141,27 +190,27 @@ input.control {
         border-top-color: rgba(#243033, .6);
     }
 }
+
+
+/*
+ * .button-stack
+ */
 .button-stack {
     display: flex;
     gap: 16px;
+}
+.field + .button-stack {
+    margin-top: 24px;
 }
 .button-stack .button {
     width: auto;
     flex-grow: 1;
 }
 
-.message {
-    margin-top: 20px;
-    color: #777;
-    font-size: 14px;
-}
 
-.divider {
-    margin: 24px 0;
-    height: 1px;
-    background: rgba(#000, .1);
-}
-
+/*
+ * .marker
+ */
 .marker {
     width: 0;
     height: 0;
@@ -189,6 +238,10 @@ input.control {
     color: #333;
 }
 
+
+/*
+ * .hint
+ */
 .hint {
     position: absolute;
     transform: translate(20px, -50%);
@@ -197,6 +250,7 @@ input.control {
     width: 280px;
     border-radius: 4px;
     color: #333;
+    word-break: break-word;
     box-shadow:
         0 0 6px rgba(#000, .1),
         0 0 0 1px rgba(#000, .04);
@@ -209,4 +263,19 @@ input.control {
 }
 .hint--alien .hint__help {
     display: none;
+}
+
+
+/*
+ * Customization of Angular Material
+ */
+html .mat-mdc-snack-bar-container {
+    margin-bottom: 32px;
+}
+html .mat-mdc-dialog-surface {
+    border-radius: 8px;
+    box-shadow:
+        0 1px 6px rgba(#000, .15),
+        0 0 0 1px rgba(#000, .04);
+    background-color: #fff;
 }
